@@ -1,0 +1,53 @@
+---
+Description: Testing standards, coverage requirements, and test patterns
+Category: Testing & QA
+---
+
+# Testing Strategy & Patterns
+
+## Test Structure
+
+```typescript
+describe("Service.method", () => {
+  let mockRepository: jest.Mocked<Repository>;
+
+  beforeEach(() => {
+    mockRepository = createMockRepository();
+  });
+
+  it("should return data when conditions are met", async () => {
+    // Arrange
+    const input = { id: 1 };
+    mockRepository.find.mockResolvedValue(testData);
+
+    // Act
+    const result = await service.method(input);
+
+    // Assert
+    expect(result).toHaveProperty("data");
+    expect(mockRepository.find).toHaveBeenCalledWith(input.id);
+  });
+
+  it("should throw error when data not found", async () => {
+    // Arrange
+    mockRepository.find.mockResolvedValue(null);
+
+    // Act & Assert
+    await expect(service.method({ id: 1 }))
+      .rejects.toThrow("Not found");
+  });
+});
+```
+
+## Coverage Requirements
+- Critical business logic: 90%+
+- API handlers: 80%+
+- Utilities: 70%+
+- UI components: 50%+
+
+## Test Naming Pattern
+```
+✓ should [expected behavior] when [condition]
+✓ should throw [error] when [condition]
+✓ should call [dependency] with [parameters] when [condition]
+```

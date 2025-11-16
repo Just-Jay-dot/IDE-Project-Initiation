@@ -1,0 +1,72 @@
+---
+Description: Project-specific development guidelines
+Category: Project Standards
+---
+
+# Project Development Guidelines
+
+## Project Overview
+- **Product:** [Product Name]
+- **Status:** [MVP | Development | Beta | Production]
+- **Tech Stack:** [List technologies]
+- **Team Size:** [X engineers]
+- **Launch Target:** [Target date]
+
+## Code Organization
+
+### Directory Structure Expectations
+```
+src/
+├── api/                    # API routes and controllers
+├── services/               # Business logic and external integrations
+├── models/                 # Data models and database schemas
+├── utils/                  # Utility functions and helpers
+├── hooks/                  # React hooks (if applicable)
+├── components/             # Reusable UI components
+├── middleware/             # Express/HTTP middleware
+└── __tests__/              # Test files co-located
+```
+
+### Naming Conventions
+- Files: `camelCase.ts` or `kebab-case.ts` (team consensus)
+- Classes: `PascalCase`
+- Functions: `camelCase`
+- Constants: `UPPER_SNAKE_CASE`
+- React Components: `PascalCase.tsx`
+- React Hooks: `useCamelCase.ts`
+- Database tables: `snake_case` (lowercase)
+- Database columns: `snake_case`
+
+## Coding Standards
+
+### TypeScript Strictness
+- `strict: true` in tsconfig.json (no exceptions)
+- No `any` type usage without specific reason documented
+- All function parameters typed
+- All function return types explicit
+- Discriminated unions for complex types
+- Use `unknown` when type is truly unknown
+
+### Error Handling
+- Throw/catch typed errors: `class AppError extends Error`
+- Never swallow errors silently
+- Log errors with context (user ID, request ID, etc.)
+- Include error codes for API responses
+- Implement fallback UI for error states
+
+## Testing Requirements
+
+### Unit Tests
+- Test file location: `src/__tests__/[module].test.ts`
+- Coverage target: 80% for critical code paths
+- Test naming: `describe() > it("should [behavior]")`
+
+## Security Checklist
+
+- [ ] All inputs validated and sanitized
+- [ ] Rate limiting implemented for public endpoints
+- [ ] CORS properly configured
+- [ ] Secrets in environment variables, not code
+- [ ] SQL injection prevention (parameterized queries)
+- [ ] XSS prevention (context-aware encoding)
+- [ ] HTTPS enforced in production

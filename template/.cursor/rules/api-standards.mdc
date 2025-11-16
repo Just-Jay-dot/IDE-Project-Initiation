@@ -1,0 +1,72 @@
+---
+Description: API design, validation, and implementation standards
+Category: API Development
+---
+
+# API Standards & Best Practices
+
+## Endpoint Implementation Template
+
+```typescript
+// Validation
+const requestSchema = z.object({
+  email: z.string().email(),
+  password: z.string().min(8),
+});
+
+// Handler
+router.post("/api/v1/resource", async (req, res, next) => {
+  try {
+    // 1. Validate input
+    const input = requestSchema.parse(req.body);
+    
+    // 2. Business logic
+    const result = await service.process(input);
+    
+    // 3. Prepare response
+    const response = {
+      success: true,
+      data: result,
+      meta: { timestamp: new Date().toISOString() },
+    };
+    
+    // 4. Return
+    res.json(response);
+  } catch (error) {
+    next(error); // Pass to error handler
+  }
+});
+```
+
+## RESTful Endpoint Patterns
+```
+GET /api/v1/[resource]           # List with pagination
+GET /api/v1/[resource]/:id       # Fetch single
+POST /api/v1/[resource]          # Create
+PATCH /api/v1/[resource]/:id     # Partial update
+DELETE /api/v1/[resource]/:id    # Delete
+```
+
+## Response Format
+```json
+{
+  "success": true,
+  "data": {},
+  "error": null,
+  "meta": {
+    "timestamp": "2025-01-20T10:00:00Z",
+    "requestId": "uuid"
+  }
+}
+```
+
+## Status Codes
+- `200`: Success
+- `201`: Created
+- `204`: No Content
+- `400`: Validation error
+- `401`: Unauthorized
+- `403`: Forbidden
+- `404`: Not found
+- `429`: Too many requests
+- `500`: Server error

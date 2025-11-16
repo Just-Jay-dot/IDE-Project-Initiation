@@ -1,0 +1,49 @@
+---
+Description: Security requirements, vulnerability prevention, and compliance standards
+Category: Security
+---
+
+# Security Implementation Checklist
+
+## Input Validation & Sanitization
+- [ ] Validate all user inputs with schema validation (Zod, Joi)
+- [ ] Sanitize HTML content to prevent XSS
+- [ ] Reject oversized payloads (>10MB default)
+- [ ] Validate file types and sizes for uploads
+- [ ] Use allowlists instead of blocklists for validation
+
+## Authentication & Authorization
+- [ ] Implement proper session management
+- [ ] Use secure password hashing (bcrypt with cost factor 12+)
+- [ ] Implement rate limiting on login attempts
+- [ ] Require HTTPS/TLS for all connections
+- [ ] Use httpOnly, secure, sameSite cookies
+- [ ] Implement JWT expiration and refresh token rotation
+
+## Data Protection
+- [ ] Encrypt sensitive data at rest
+- [ ] Encrypt data in transit (HTTPS/TLS 1.2+)
+- [ ] Use parameterized queries (prevent SQL injection)
+- [ ] Implement field-level access control
+- [ ] Mask PII in logs
+- [ ] Regular database backups with encryption
+
+## API Security
+- [ ] Implement rate limiting per IP and per user
+- [ ] Validate content-type headers
+- [ ] Implement CORS with specific allowed origins
+- [ ] Use CSRF tokens for state-changing requests
+- [ ] Add request signing for critical operations
+
+## Dependency Management
+- [ ] Run `npm audit` regularly
+- [ ] Update dependencies monthly (at minimum)
+- [ ] Review dependency licenses
+- [ ] Use lockfile (package-lock.json)
+- [ ] Scan with security tools (Snyk, WhiteSource)
+
+## Secrets Management
+- [ ] Use .env files (never commit to git)
+- [ ] Use different secrets for dev/staging/production
+- [ ] Rotate secrets regularly (at least quarterly)
+- [ ] Use secret management service (AWS Secrets Manager, Vault)
