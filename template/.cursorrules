@@ -1,0 +1,194 @@
+# Windsor Project Constitution - Cursor Rules
+# This file is automatically read by Cursor IDE
+
+## Project Constitution
+This project follows the Windsor Project Constitution system for standardized development.
+
+## Core Development Principles
+
+### Code Quality Standards
+- Write clean, maintainable code following SOLID principles
+- Prefer explicit over implicit; clarity over cleverness
+- Use meaningful variable names; avoid single-letter vars except loop counters
+- DRY principle: Extract repeated logic into reusable functions
+- KISS principle: Keep solutions simple; don't over-engineer
+- Maximum function length: 50 lines; if longer, extract helpers
+- Maximum file length: 500 lines; split into logical modules
+
+### Type Safety & Validation
+- Use TypeScript everywhere; no `any` types without justification
+- Validate all user inputs and API responses
+- Use explicit error types; never suppress errors silently
+- Include input validation in all API endpoints
+- Type all function parameters and return values
+
+### Testing Standards
+- Write tests for all business logic
+- Minimum coverage: 80% for critical paths, 60% for general code
+- Unit tests: Fast, isolated, independent
+- Test error cases and edge cases, not just happy paths
+- Test naming: "should [behavior] when [condition]"
+
+### Security First
+- Never log sensitive data (passwords, tokens, API keys)
+- Sanitize all user inputs before database storage
+- Use parameterized queries to prevent SQL injection
+- Implement proper authentication and authorization checks
+- Validate CORS, CSRF, and XSS protections
+- Never commit secrets to repository; use environment variables
+
+### Performance Considerations
+- Optimize database queries; avoid N+1 problems
+- Cache appropriately but invalidate properly
+- Use pagination for large datasets
+- Minimize re-renders in React components
+- Monitor API response times; keep <500ms p95
+
+## Project Structure
+This project follows the Windsor Constitution structure:
+- `.cursor/guides/` - All Windsor Constitution guides
+- `.cursor/rules/` - Project-specific development rules
+- `docs/IDEA/` - Idea validation documents
+- `docs/BLUEPRINT/` - Product specifications
+- `docs/OPERATIONS/` - Deployment and operations
+- `docs/TEAM/` - Team documentation
+- `docs/METRICS/` - Success metrics
+
+## Development Workflow
+
+### Before Writing Code
+1. Ask clarifying questions if requirements are ambiguous
+2. Propose architectural approach for approval
+3. Identify potential edge cases and error scenarios
+4. Confirm dependencies and assumptions
+
+### During Implementation
+1. Provide inline comments for non-obvious logic
+2. Include type definitions and error handling upfront
+3. Write tests alongside or immediately after code
+4. Flag potential performance issues
+5. Explain complex algorithmic decisions
+
+### Code Review Mindset
+1. Review code for security vulnerabilities
+2. Check for proper error handling
+3. Verify type safety and null checks
+4. Identify opportunities for simplification
+5. Point out potential performance bottlenecks
+
+## API Design Standards
+
+### RESTful Endpoint Patterns
+```
+GET /api/v1/[resource]           # List with pagination
+GET /api/v1/[resource]/:id       # Fetch single
+POST /api/v1/[resource]          # Create
+PATCH /api/v1/[resource]/:id     # Partial update
+DELETE /api/v1/[resource]/:id    # Delete
+```
+
+### Response Format
+```json
+{
+  "success": true,
+  "data": {},
+  "error": null,
+  "meta": {
+    "timestamp": "2025-01-20T10:00:00Z",
+    "requestId": "uuid"
+  }
+}
+```
+
+### Status Codes
+- 200: Success
+- 201: Created
+- 400: Validation error
+- 401: Unauthorized
+- 403: Forbidden
+- 404: Not found
+- 429: Too many requests
+- 500: Server error
+
+## Testing Requirements
+
+### Test Structure Pattern
+```typescript
+describe("Component.method", () => {
+  it("should [expected behavior] when [condition]", async () => {
+    // Arrange
+    const input = { /* test data */ };
+    
+    // Act
+    const result = await component.method(input);
+    
+    // Assert
+    expect(result).toMatchExpected();
+  });
+});
+```
+
+### Coverage Requirements
+- Critical business logic: 90%+
+- API handlers: 80%+
+- Utilities: 70%+
+- UI components: 50%+
+
+## Security Checklist
+
+### Always Implement
+- Input validation with schema validation (Zod, Joi)
+- Sanitize HTML content to prevent XSS
+- Parameterized queries (prevent SQL injection)
+- Rate limiting per IP and per user
+- HTTPS/TLS for all connections
+- Secure password hashing (bcrypt, cost factor 12+)
+- JWT expiration and refresh token rotation
+- CORS with specific allowed origins
+
+### Never Do
+- Log sensitive data (passwords, tokens, API keys)
+- Use `any` type without documentation
+- Commit secrets to repository
+- Skip input validation
+- Ignore error cases
+- Deploy without security review
+
+## Documentation Standards
+- Document public API interfaces
+- Explain "why" not just "what"
+- Include examples for non-obvious functions
+- Update README when structure changes
+- Keep inline comments updated with code changes
+- Document assumptions and constraints
+
+## Performance Targets
+- API response time: <500ms p95
+- Database query time: <100ms
+- Page load time: <3 seconds
+- Uptime: 99.9% in production
+
+## Reference Guides
+All detailed guides are available in `.cursor/guides/`:
+- IDEA_GUIDE.md - Idea validation and product development
+- BLUEPRINT_GUIDE.md - Product specifications and MVP roadmap
+- CURSOR.md - Complete Cursor IDE configuration
+- SYSTEM_SUMMARY.md - System overview
+- ui-ux-prompt-2025.md - UI/UX design patterns
+
+## Project-Specific Rules
+Additional project-specific rules are in `.cursor/rules/`:
+- project-guidelines.mdc - Project-specific standards
+- api-standards.mdc - API design patterns
+- testing-requirements.mdc - Testing strategies
+- security-checklist.mdc - Security requirements
+
+---
+
+When working on this project, always:
+1. Follow these standards by default
+2. Reference `.cursor/guides/` for detailed information
+3. Check `.cursor/rules/` for project-specific requirements
+4. Ask for clarification if standards conflict
+5. Suggest improvements to standards when appropriate
+
