@@ -23,7 +23,7 @@ const { execSync } = require('child_process');
 const glob = require('glob');
 
 // Configuration
-const WINDSOR_REPO = 'https://github.com/yourusername/windsor-project-constitution.git';
+const WINDSOR_REPO = 'https://github.com/Just-Jay-dot/IDE-Project-Initiation.git';
 const WINDSOR_VERSION = '1.0.0';
 const CACHE_DIR = path.join(require('os').homedir(), '.windsor-cache');
 const TEMPLATE_DIR = path.join(CACHE_DIR, 'template');
