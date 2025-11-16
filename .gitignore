@@ -1,0 +1,26 @@
+# Dependencies
+node_modules/
+package-lock.json
+
+# OS files
+.DS_Store
+.DS_Store?
+._*
+.Trashes
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Cache
+.windsor-cache/
+
+# Logs
+*.log
+npm-debug.log*
+
+# Environment
+.env
+.env.local
