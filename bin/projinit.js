@@ -192,7 +192,7 @@ async function copyTemplateFiles(root) {
     const destPath = path.join(root, file);
     
     const stat = await fs.stat(srcPath);
-    if (stat.isFile() && (file.endsWith('.md') || file.endsWith('.mdc'))) {
+    if (stat.isFile() && (file.endsWith('.md') || file.endsWith('.mdc') || file === '.cursorrules')) {
       await fs.copy(srcPath, destPath, { overwrite: false });
       log.success(`Copied ${file}`);
     }
@@ -204,6 +204,22 @@ async function copyTemplateFiles(root) {
     const rulesDest = path.join(root, '.cursor', 'rules');
     await fs.copy(rulesSource, rulesDest, { overwrite: false });
     log.success('Copied .cursor/rules/');
+  }
+  
+  // Copy .cursor/guides
+  const guidesSource = path.join(TEMPLATE_DIR, '.cursor', 'guides');
+  if (await fs.pathExists(guidesSource)) {
+    const guidesDest = path.join(root, '.cursor', 'guides');
+    await fs.copy(guidesSource, guidesDest, { overwrite: false });
+    log.success('Copied .cursor/guides/');
+  }
+  
+  // Copy .cursor/README.md
+  const cursorReadmeSource = path.join(TEMPLATE_DIR, '.cursor', 'README.md');
+  if (await fs.pathExists(cursorReadmeSource)) {
+    const cursorReadmeDest = path.join(root, '.cursor', 'README.md');
+    await fs.copy(cursorReadmeSource, cursorReadmeDest, { overwrite: false });
+    log.success('Copied .cursor/README.md');
   }
   
   // Copy docs structure
